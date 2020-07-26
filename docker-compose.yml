@@ -1,0 +1,12 @@
+version: '3.7'
+services: 
+    integrairton:
+        container_name: integrairton
+        build: .
+        ports: 
+            - '3000:3000'
+    rediscandoprasuamae:
+        container_name: redis
+        image: redis:latest
+        ports:
+            - '6379:6379'
