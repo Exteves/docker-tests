@@ -8,14 +8,23 @@ const client = redis.createClient({
 const app = express();
 
 const port = 3000;
-app.get('/', (req, res) => {
-  client.set('foo_rand000000000000', 'OK');
-  res.send('The sedulous hyena ate the antelope!');
-});
 
 app.listen(port, '0.0.0.0', err => {
   if (err) {
     return console.error(err);
   }
-  return console.log(`server is listening on ${port}`);
+  return console.log(`Rodando na porta ${port}`);
 });
+
+import * as HomeController from './controllers/Home';
+import NativeDevice from './controllers/NativeDevice';
+
+const nativeController = new NativeDevice();
+
+app.get('/', HomeController.index);
+app.get('/memoryItem', nativeController.getMemoryItem);
+app.post('/memoryItem', nativeController.setMemoryItem);
+app.get('/featureToggle', nativeController.getFeatureToggle);
+app.get('/routerRequest', nativeController.routerRequest);
+
+export default app;
